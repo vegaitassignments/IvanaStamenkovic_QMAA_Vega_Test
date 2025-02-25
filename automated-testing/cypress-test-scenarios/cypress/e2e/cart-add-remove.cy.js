@@ -1,16 +1,16 @@
 describe("TC_CART_001 - Verify cart updates correctly", () => {
   beforeEach(() => {
-    cy.visit("https://www.saucedemo.com/v1/index.html");
+    cy.visit(Cypress.env("baseUrl"));
   });
 
   it("should update cart image correctly after adding and removing items", () => {
     // Fill out the login form
-    cy.get("[data-test='username']").type("standard_user");
-    cy.get("[data-test='password']").type("secret_sauce");
+    cy.get("[data-test='username']").type(Cypress.env("username"));
+    cy.get("[data-test='password']").type(Cypress.env("password"));
 
     // Verify entered data in the login form
     cy.get("[data-test='username']").should("have.value", "standard_user");
-    cy.get("[data-test='password']").should("have.value", "secret_sauce");
+    cy.get("[data-test='password']").should("not.have.value", "");
 
     // Log in
     cy.get("#login-button").click();

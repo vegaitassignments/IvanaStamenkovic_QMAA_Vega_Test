@@ -1,16 +1,23 @@
 describe("TC_RESET_001 - Verify that the application state resets successfully", () => {
   beforeEach(() => {
-    cy.visit("https://www.saucedemo.com/v1/index.html");
+    cy.visit(Cypress.env("baseUrl"));
   });
 
   it("should reset the cart and product states after clicking Reset App State", () => {
     // Log in
-    cy.get("[data-test='username']").type("standard_user");
-    cy.get("[data-test='password']").type("secret_sauce");
+    cy.get("[data-test='username']").type(Cypress.env("username"));
+    cy.get("[data-test='password']").type(Cypress.env("password"));
+
+    // Verify entered data in the login form
+    cy.get("[data-test='username']").should("have.value", "standard_user");
+    cy.get("[data-test='password']").should("not.have.value", "");
+
+    // Log in
     cy.get("#login-button").click();
 
     // Verify redirection to inventory page
     cy.url().should("include", "/inventory.html");
+    cy.get(".inventory_item").should("have.length", 6);
 
     // Add Sauce Labs Onesie to cart
     cy.contains(".inventory_item", "Sauce Labs Onesie")
