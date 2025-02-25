@@ -7,7 +7,7 @@ export const CheckoutPage = {
   },
   inputFields: {
     firstName: "[data-test='firstName']",
-    lastNema: "[data-test='lastName']",
+    lastName: "[data-test='lastName']",
     postalCode: "[data-test='postalCode']",
   },
   confirmationMessage: ".complete-text",
