@@ -1,3 +1,5 @@
+import { LoginPage } from '../pages/login-page';
+
 describe("TC_SORT_001 - Verify products are sorted correctly", () => {
   beforeEach(() => {
     cy.visit(Cypress.env("baseUrl"));
@@ -5,15 +7,15 @@ describe("TC_SORT_001 - Verify products are sorted correctly", () => {
 
   it("should sort products correctly after selecting sort - price (low to high)", () => {
     // Fill out the login form
-    cy.get("[data-test='username']").type(Cypress.env("username"));
-    cy.get("[data-test='password']").type(Cypress.env("password"));
+    cy.get(LoginPage.inputFields.username).type(Cypress.env("username"));
+    cy.get(LoginPage.inputFields.password).type(Cypress.env("password"));
 
     // Verify entered data in the login form
-    cy.get("[data-test='username']").should("have.value", "standard_user");
-    cy.get("[data-test='password']").should("not.have.value", "");
+    cy.get(LoginPage.inputFields.username).should("have.value", "standard_user");
+    cy.get(LoginPage.inputFields.password).should("not.have.value", "");
 
     // Log in
-    cy.get("#login-button").click();
+    cy.get(LoginPage.buttons.loginButton).click();
 
     // Verify redirection to inventory page
     cy.url().should("include", "/inventory.html");

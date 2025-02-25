@@ -1,19 +1,21 @@
+import { LoginPage } from '../pages/login-page';
+
 describe("TC_RESET_001 - Verify that the application state resets successfully", () => {
   beforeEach(() => {
     cy.visit(Cypress.env("baseUrl"));
   });
 
   it("should reset the cart and product states after clicking Reset App State", () => {
-    // Log in
-    cy.get("[data-test='username']").type(Cypress.env("username"));
-    cy.get("[data-test='password']").type(Cypress.env("password"));
+    // Fill out the login form
+    cy.get(LoginPage.inputFields.username).type(Cypress.env("username"));
+    cy.get(LoginPage.inputFields.password).type(Cypress.env("password"));
 
     // Verify entered data in the login form
-    cy.get("[data-test='username']").should("have.value", "standard_user");
-    cy.get("[data-test='password']").should("not.have.value", "");
+    cy.get(LoginPage.inputFields.username).should("have.value", "standard_user");
+    cy.get(LoginPage.inputFields.password).should("not.have.value", "");
 
     // Log in
-    cy.get("#login-button").click();
+    cy.get(LoginPage.buttons.loginButton).click();
 
     // Verify redirection to inventory page
     cy.url().should("include", "/inventory.html");
