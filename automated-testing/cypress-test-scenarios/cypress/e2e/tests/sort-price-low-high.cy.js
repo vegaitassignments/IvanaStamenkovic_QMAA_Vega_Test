@@ -1,4 +1,5 @@
-import { LoginPage } from '../pages/login-page';
+import { InventoryPage } from "../pages/inventory-page";
+import { LoginPage } from "../pages/login-page";
 
 describe("TC_SORT_001 - Verify products are sorted correctly", () => {
   beforeEach(() => {
@@ -11,7 +12,10 @@ describe("TC_SORT_001 - Verify products are sorted correctly", () => {
     cy.get(LoginPage.inputFields.password).type(Cypress.env("password"));
 
     // Verify entered data in the login form
-    cy.get(LoginPage.inputFields.username).should("have.value", "standard_user");
+    cy.get(LoginPage.inputFields.username).should(
+      "have.value",
+      "standard_user"
+    );
     cy.get(LoginPage.inputFields.password).should("not.have.value", "");
 
     // Log in
@@ -19,19 +23,19 @@ describe("TC_SORT_001 - Verify products are sorted correctly", () => {
 
     // Verify redirection to inventory page
     cy.url().should("include", "/inventory.html");
-    cy.get(".inventory_item").should("have.length", 6);
+    cy.get(InventoryPage.inventoryItem).should("have.length", 6);
 
     // Verify dropdown menu is visible
-    cy.get(".product_sort_container").should("be.visible");
+    cy.get(InventoryPage.sortContainer).should("be.visible");
 
     // Select Price (low to high) option
-    cy.get(".product_sort_container")
+    cy.get(InventoryPage.sortContainer)
       .select("lohi")
       .should("have.value", "lohi");
 
     // Verify that each next price is greater than or equal to the previous one
     let previousPrice = 0;
-    cy.get(".inventory_item_price").each(($el, index, $list) => {
+    cy.get(InventoryPage.productPrice).each(($el, index, $list) => {
       cy.wrap($el)
         .invoke("text")
         .then((text) => {

@@ -1,4 +1,5 @@
-import { LoginPage } from '../pages/login-page';
+import { InventoryPage } from "../pages/inventory-page";
+import { LoginPage } from "../pages/login-page";
 
 describe("TC_CHECKOUT_001 - Verify that user can checkout", () => {
   beforeEach(() => {
@@ -11,7 +12,10 @@ describe("TC_CHECKOUT_001 - Verify that user can checkout", () => {
     cy.get(LoginPage.inputFields.password).type(Cypress.env("password"));
 
     // Verify entered data in the login form
-    cy.get(LoginPage.inputFields.username).should("have.value", "standard_user");
+    cy.get(LoginPage.inputFields.username).should(
+      "have.value",
+      "standard_user"
+    );
     cy.get(LoginPage.inputFields.password).should("not.have.value", "");
 
     // Log in
@@ -19,18 +23,18 @@ describe("TC_CHECKOUT_001 - Verify that user can checkout", () => {
 
     // Verify redirection to inventory page
     cy.url().should("include", "/inventory.html");
-    cy.get(".inventory_item").should("have.length", 6);
+    cy.get(InventoryPage.inventoryItem).should("have.length", 6);
 
     // Add Sauce Labs Fleece Jacket to cart
-    cy.contains(".inventory_item", "Sauce Labs Fleece Jacket")
-      .find(".btn_inventory")
+    cy.contains(InventoryPage.inventoryItem, "Sauce Labs Fleece Jacket")
+      .find(InventoryPage.productButtons.addToCart)
       .click();
 
     // Verify that the cart icon updates to display 1 item
-    cy.get(".shopping_cart_badge").should("have.text", "1");
+    cy.get(InventoryPage.cartBadge).should("have.text", "1");
 
     // Open cart page
-    cy.get("#shopping_cart_container").click();
+    cy.get(InventoryPage.cartIcon).click();
 
     // Verify redirection to cart page
     cy.url().should("include", "/cart.html");

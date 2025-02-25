@@ -1,4 +1,5 @@
-import { LoginPage } from '../pages/login-page';
+import { LoginPage } from "../pages/login-page";
+import { InventoryPage } from "../pages/inventory-page";
 
 describe("TC_CART_001 - Verify cart updates correctly", () => {
   beforeEach(() => {
@@ -11,7 +12,10 @@ describe("TC_CART_001 - Verify cart updates correctly", () => {
     cy.get(LoginPage.inputFields.password).type(Cypress.env("password"));
 
     // Verify entered data in the login form
-    cy.get(LoginPage.inputFields.username).should("have.value", "standard_user");
+    cy.get(LoginPage.inputFields.username).should(
+      "have.value",
+      "standard_user"
+    );
     cy.get(LoginPage.inputFields.password).should("not.have.value", "");
 
     // Log in
@@ -19,33 +23,33 @@ describe("TC_CART_001 - Verify cart updates correctly", () => {
 
     // Verify redirection to inventory page
     cy.url().should("include", "/inventory.html");
-    cy.get(".inventory_item").should("have.length", 6);
+    cy.get(InventoryPage.inventoryItem).should("have.length", 6);
 
     // Add Sauce Labs Backpack to cart
-    cy.contains(".inventory_item", "Sauce Labs Backpack")
-      .find(".btn_inventory")
+    cy.contains(InventoryPage.inventoryItem, "Sauce Labs Backpack")
+      .find(InventoryPage.productButtons.addToCart)
       .click();
 
     // Verify that the ADD TO CART button changed to REMOVE
-    cy.contains(".inventory_item", "Sauce Labs Backpack")
-      .find(".btn_inventory")
+    cy.contains(InventoryPage.inventoryItem, "Sauce Labs Backpack")
+      .find(InventoryPage.productButtons.removeFromCart)
       .should("have.text", "REMOVE");
 
     // Verify that the cart icon updates to display 1 item
-    cy.get(".shopping_cart_badge").should("have.text", "1");
+    cy.get(InventoryPage.cartBadge).should("have.text", "1");
 
     // Add Sauce Labs Onesie to cart
-    cy.contains(".inventory_item", "Sauce Labs Onesie")
-      .find(".btn_inventory")
+    cy.contains(InventoryPage.inventoryItem, "Sauce Labs Onesie")
+      .find(InventoryPage.productButtons.addToCart)
       .click();
 
     // Verify that the ADD TO CART button changed to REMOVE
-    cy.contains(".inventory_item", "Sauce Labs Onesie")
-      .find(".btn_inventory")
+    cy.contains(InventoryPage.inventoryItem, "Sauce Labs Onesie")
+      .find(InventoryPage.productButtons.removeFromCart)
       .should("have.text", "REMOVE");
 
     // Verify that the cart icon updates to display 2 items
-    cy.get(".shopping_cart_badge").should("have.text", "2");
+    cy.get(InventoryPage.cartBadge).should("have.text", "2");
 
     // Open Sauce Labs Backpack product page
     cy.get(".inventory_item_name").contains("Sauce Labs Backpack").click();
