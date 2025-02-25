@@ -1,7 +1,7 @@
 import { InventoryPage } from "../pages/inventory-page";
 import { LoginPage } from "../pages/login-page";
 import { CartPage } from "../pages/cart-page";
-
+import { CheckoutPage } from "../pages/checkout-page";
 
 describe("TC_CHECKOUT_001 - Verify that user can checkout", () => {
   beforeEach(() => {
@@ -48,20 +48,20 @@ describe("TC_CHECKOUT_001 - Verify that user can checkout", () => {
     cy.url().should("include", "/checkout-step-one.html");
 
     // Fill out checkout form
-    cy.get("[data-test='firstName']").type("Ivana");
-    cy.get("[data-test='lastName']").type("Test");
-    cy.get("[data-test='postalCode']").type("21000");
-    cy.get(".cart_button").click();
+    cy.get(CheckoutPage.inputFields.firstName).type("Ivana");
+    cy.get(CheckoutPage.inputFields.lastName).type("Test");
+    cy.get(CheckoutPage.inputFields.postalCode).type("21000");
+    cy.get(CheckoutPage.buttons.continueButton).click();
 
     // Verify that checkout form has been successfully submitted
     cy.url().should("include", "/checkout-step-two.html");
 
     // Finish checkout
-    cy.get(".cart_button").click();
+    cy.get(CheckoutPage.buttons.finishButton).click();
 
     // Verify that the order has been sent
     cy.url().should("include", "checkout-complete.html");
-    cy.get(".complete-text").should(
+    cy.get(CheckoutPage.confirmationMessage).should(
       "contain.text",
       "order has been dispatched"
     );
