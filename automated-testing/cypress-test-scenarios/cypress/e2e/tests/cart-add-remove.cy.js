@@ -1,5 +1,6 @@
 import { LoginPage } from "../pages/login-page";
 import { InventoryPage } from "../pages/inventory-page";
+import { ProductPage } from "../pages/product-page";
 
 describe("TC_CART_001 - Verify cart updates correctly", () => {
   beforeEach(() => {
@@ -52,19 +53,21 @@ describe("TC_CART_001 - Verify cart updates correctly", () => {
     cy.get(InventoryPage.cartBadge).should("have.text", "2");
 
     // Open Sauce Labs Backpack product page
-    cy.get(".inventory_item_name").contains("Sauce Labs Backpack").click();
+    cy.get(InventoryPage.inventoryItemTitle)
+      .contains("Sauce Labs Backpack")
+      .click();
 
     // Verify that Sauce Labs Backpack product page has opened
     cy.url().should("include", "/inventory-item.html?id=4");
 
     // Remove Sauce Labs Backpack from cart
-    cy.contains(".inventory_details_container", "Sauce Labs Backpack")
-      .find(".btn_inventory")
+    cy.contains(ProductPage.itemDetails, "Sauce Labs Backpack")
+      .find(ProductPage.productButtons.removeFromCart)
       .click();
 
     // Verify that there is one item in the cart
-    cy.contains(".inventory_details_container", "Sauce Labs Backpack")
-      .find(".btn_inventory")
+    cy.contains(ProductPage.itemDetails, "Sauce Labs Backpack")
+      .find(ProductPage.productButtons.addToCart)
       .should("have.text", "ADD TO CART");
     cy.get(InventoryPage.cartBadge).should("have.text", "1");
   });
