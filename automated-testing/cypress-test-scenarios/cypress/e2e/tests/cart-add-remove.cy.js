@@ -66,6 +66,6 @@ describe("TC_CART_001 - Verify cart updates correctly", () => {
     cy.contains(".inventory_details_container", "Sauce Labs Backpack")
       .find(".btn_inventory")
       .should("have.text", "ADD TO CART");
-    cy.get(".shopping_cart_badge").should("have.text", "1");
+    cy.get(InventoryPage.cartBadge).should("have.text", "1");
   });
 });

@@ -1,5 +1,7 @@
 import { InventoryPage } from "../pages/inventory-page";
 import { LoginPage } from "../pages/login-page";
+import { CartPage } from "../pages/cart-page";
+
 
 describe("TC_CHECKOUT_001 - Verify that user can checkout", () => {
   beforeEach(() => {
@@ -40,7 +42,7 @@ describe("TC_CHECKOUT_001 - Verify that user can checkout", () => {
     cy.url().should("include", "/cart.html");
 
     // Proceed to checkout
-    cy.get(".checkout_button").click();
+    cy.get(CartPage.buttons.checkoutButton).click();
 
     // Verify redirection to checkout page
     cy.url().should("include", "/checkout-step-one.html");
