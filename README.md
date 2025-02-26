@@ -11,3 +11,14 @@ This repository contains files related to manual testing activities.
 - **bug-reports-sauce-demo-ivana-stamenkovic** – Contains detailed descriptions of six bugs, plus five additional bugs and seven suggestions for improvement.  
 - **test-cases-sauce-demo-ivana-stamenkovic** – Includes 34 test cases created based on four user stories, with 13 test cases described in detail.  
 - **test-report-sauce-demo-ivana-stamenkovic** – A test report summarizing the testing process and results.  
+
+# automated-testing  
+
+This repository contains files related to automated testing.  
+
+## Files and Folders  
+
+- **test-cases-for-automation-sauce-demo-ivana-stamenkovic** – Detailed descriptions of the test cases that have been automated.  
+- **cypress-test-scenarios** – A folder containing automated test scripts.  
+  - Path: `IvanaStamenkovic_QMAA_Vega_Test/automated-testing/cypress-test-scenarios/cypress/e2e/tests`  
+
